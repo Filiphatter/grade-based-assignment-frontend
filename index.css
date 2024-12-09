@@ -1,0 +1,67 @@
+body {
+    padding: 0;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* HEADER */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(255, 153, 0);
+    padding: 1rem 1rem;
+}
+
+
+/* hero mög */
+.buttons {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 0;
+gap: 0;
+width: 100%;
+height: 100%;
+}
+/* kanpp för cocktail */
+.randomCocktail {
+    height: 40px;
+    width: 300px;
+    color: black;
+    font-size: 1.5rem;
+    background-color: orange;
+}
+/* knapp info */
+.moreInfo {
+    height: 40px;
+    width: 300px;
+    color: black;
+    font-size: 1.5rem;
+    background-color: orange;
+}
+
+.heroContainer {
+    display: flex;
+    }
+
+.cocktailSection {
+    justify-content: left;
+    width: 60%;
+    height: 100%;
+    color: orange;
+    font-size: xx-large; 
+    /* färgen på namnet på cocktail som sker med innerhtml */
+}
+
+.moreInfoDiv {
+    justify-content: right;
+    width: 50%;
+    height: 100%;
+    color: orange;
+}
+
+/* bot if (cba) else (idc) */
+
