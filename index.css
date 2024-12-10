@@ -11,7 +11,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: rgb(255, 153, 0);
+    background-color: orange;
     padding: 1rem 1rem;
 }
 

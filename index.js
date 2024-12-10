@@ -13,29 +13,53 @@ const randomcocktailapi = "https://www.thecocktaildb.com/api/json/v1/1/random.ph
 
 const randomCocktailButton = document.querySelector(".randomCocktail")
 
-async function randomcocktail() {
+export async function randomcocktail() {
     try {
         const responeRandomCocktail = await fetch(randomcocktailapi);
         const response = await responeRandomCocktail.json(); //omvandlar till JSON 
 
-        const cocktail = response.drinks ? response.drinks[0] : response; //man får en undefined cocktail så behöver vi denna if checken (ternary operator enl wiktor) 
+        const cocktail = response.drinks ? response.drinks[0] : response; //man får en undefined cocktail så behöver vi denna if checken (terinary operator enl wiktor) 
         // översatt cocktail = är detta sant?  isåfall gör detta : annars gör detta
         //om en cocktail finns så mappas den genom funktionen
         const mappedcocktail = mapRawCocktailData(cocktail);
-        console.log(mappedcocktail); //skriver ut mappad cocktail
+        // console.log(mappedcocktail); //skriver ut mappad cocktail
         
         //innerhtml för visa cocktail grundinfo
-        const randomCocktailName = mappedcocktail.name;
-        const randomCocktailImage = mappedcocktail.thumbnail;
-        const randomcocktailInfo = document.querySelector(".cocktailSection");
-        randomcocktailInfo.innerHTML = `
-        <strong>${randomCocktailName}</strong>
-        <img src="${randomCocktailImage}" alt="${randomCocktailName}" />`;
-        console.log(mappedcocktail)
+        const randomCocktailInfo = document.querySelector(".cocktailSection");
+        randomCocktailInfo.innerHTML = `
+        <strong>${mappedcocktail.name}</strong>
+        <img src="${mappedcocktail.thumbnail}" alt="${mappedcocktail.name}" />`;
+        
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };
+const detailedInfoapi = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailId}"
+const moreInfoButton = document.querySelector(".moreInfo")
+
+async function Info() {
+    try {
+    const responsecocktailid = await fetch(detailedInfoapi)
+    const response = await responsecocktailid.text();
+    
+    const info = response.drinks ? response.drinks[0] : response;
+
+    const mappedinfo = mapRawCocktailData(info)
+    
+    console.log(mappedinfo.name);
+    console.log(mappedinfo.category); //funkar
+    console.log(mappedinfo.thumbnail); //funkar
+    console.log(mappedinfo.tags); // if tom / skriv ut obj
+    console.log(mappedinfo.instructions); // funkar
+    console.log(mappedinfo.ingredients); //skriv ut obj
+    console.log(mappedinfo.glass);
+
+
+    }   catch (error) {
+    console.log(error);
+
+    } 
+}
 
 
 
@@ -45,4 +69,5 @@ async function randomcocktail() {
 //instruktion = instructions
 //ingredienser = ingredients
 //glas = glass
+moreInfoButton.addEventListener("click", Info)
 randomCocktailButton.addEventListener("click", randomcocktail);
