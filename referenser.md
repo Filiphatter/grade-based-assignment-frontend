@@ -8,3 +8,4 @@ css tips om fonts är glömsk = https://www.w3schools.com/cssref/pr_font_weight.
 
 innherhtml reminder = https://www.w3schools.com/jsref/prop_html_innerhtml.asp
 
+hjälp från wiktor med more info syntax
