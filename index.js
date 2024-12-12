@@ -1,60 +1,67 @@
 import { mapRawCocktailData } from "./utilities.js"; //importing function to get a good object
 
+
+        const randomCocktailButton = document.querySelector(".randomCocktail")
+        randomCocktailButton.addEventListener("click", randomcocktail); //bra ställe?
+
+
+// funktioner nedför
+
 function searchFunciton() {
     const searchfunktion = document.getElementById("search").value;
     // search funktionen här när jag får tag på id
 }
 
-
-
+async function randomcocktailgenerator() {
+    try {
+        const responeRandomCocktail = await fetch(randomcocktailapi);
+        const response = await responeRandomCocktail.json(); //omvandlar till JSON 
+        const cocktail = response.drinks ? response.drinks[0] : response; //man får en undefined cocktail så behöver vi denna if checken (terinary operator enl wiktor) 
+        // översatt cocktail = är detta sant?  isåfall gör detta : annars gör detta
+        //om en cocktail finns så mappas den genom funktionen
+      
+}
+catch (error) {
+    console.log(error);
+}
+}
 
 //randomcocktail api
 const randomcocktailapi = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
-const randomCocktailButton = document.querySelector(".randomCocktail")
+randomcocktailgenerator() {
+    
+    const mappedcocktail = mapRawCocktailData(cocktail);
+    randomcocktail(mappedcocktail)
+};
 
-export async function randomcocktail() {
-    try {
-        const responeRandomCocktail = await fetch(randomcocktailapi);
-        const response = await responeRandomCocktail.json(); //omvandlar till JSON 
-
-        const cocktail = response.drinks ? response.drinks[0] : response; //man får en undefined cocktail så behöver vi denna if checken (terinary operator enl wiktor) 
-        // översatt cocktail = är detta sant?  isåfall gör detta : annars gör detta
-        //om en cocktail finns så mappas den genom funktionen
-        const mappedcocktail = mapRawCocktailData(cocktail);
-        // console.log(mappedcocktail); //skriver ut mappad cocktail
+function randomcocktail(mappedcocktail) {
         
         //innerhtml för visa cocktail grundinfo
         const randomCocktailInfo = document.querySelector(".cocktailSection");
         randomCocktailInfo.innerHTML = `
         <strong>${mappedcocktail.name}</strong>
-        <img src="${mappedcocktail.thumbnail}" alt="${mappedcocktail.name}" />`;
+        <img src="${mappedcocktail.thumbnail}" alt="${mappedcocktail.name}" />
+        <button class="moreInfo">More info!</button>`;
         
-    } catch (error) {
-        console.log(error);
-    }
-};
-const detailedInfoapi = "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailId}"
-const moreInfoButton = document.querySelector(".moreInfo")
+        const buttoninfo = randomCocktailInfo.querySelector(".moreInfo")
+        buttoninfo.addEventListener("click", () => {
+            Info(mappedcocktail.id)
+        } )
+        
+    } ;
 
-async function Info() {
+
+
+async function Info(cocktailId) {
+    const detailedInfoapi = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${cocktailId}`
     try {
     const responsecocktailid = await fetch(detailedInfoapi)
-    const response = await responsecocktailid.text();
+    const res = await responsecocktailid.json();
+        const info = res.drinks ? res.drinks[0] : res;
+        const mappadInfo = mapRawCocktailData(info);
+        console.log(mappadInfo)
     
-    const info = response.drinks ? response.drinks[0] : response;
-
-    const mappedinfo = mapRawCocktailData(info)
-    
-    console.log(mappedinfo.name);
-    console.log(mappedinfo.category); //funkar
-    console.log(mappedinfo.thumbnail); //funkar
-    console.log(mappedinfo.tags); // if tom / skriv ut obj
-    console.log(mappedinfo.instructions); // funkar
-    console.log(mappedinfo.ingredients); //skriv ut obj
-    console.log(mappedinfo.glass);
-
-
     }   catch (error) {
     console.log(error);
 
@@ -69,5 +76,4 @@ async function Info() {
 //instruktion = instructions
 //ingredienser = ingredients
 //glas = glass
-moreInfoButton.addEventListener("click", Info)
-randomCocktailButton.addEventListener("click", randomcocktail);
+
