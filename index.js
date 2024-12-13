@@ -106,7 +106,7 @@ function randomcocktail(mappedcocktail) {
         ).join("")} 
         </ul>
          <p>${Info.instructions} </p>
-         <p>${Info.thumbnail} </p>
+          <img src="${Info.thumbnail}" alt="${Info.name}" />
         `
     // skriver ut namn -> category -> mappar igenom taggar om det finns flera skrivs de ut -> sedan vilket glass -> till ingredienser+hur mycket -> instruktioner -> till länk
     }
@@ -133,6 +133,3 @@ async function InfoId(cocktailId) {
 
 
 //instruktion = instructions
-
-
-
