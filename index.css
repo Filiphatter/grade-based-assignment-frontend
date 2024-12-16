@@ -3,6 +3,7 @@ body {
     background-color: black;
     width: 100%;
     height: 100%;
+    color:orange;
 }
 #start-page,
 #details-page,
@@ -25,17 +26,21 @@ body {
     font-size: 2rem;
 }
 
+.home-button {
+    background-color: black;
+    color:orange;
+    font-size: 1rem;
+}
+
+.search-button {
+    background-color: black;
+    color:orange;
+    font-size: 1rem;
+}
+
+
 
 /* hero mög */
-.buttons {
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 0;
-gap: 0;
-width: 100%;
-height: 100%;
-}
 /* kanpp för cocktail */
 .randomCocktail {
     height: 40px;

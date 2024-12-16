@@ -11,46 +11,31 @@
     randomcocktailgenerator(); 
     </script>
 <!-- header start -->
-    
       <nav class="navbar1"> <!-- undersöka -->
-      <div class="logo">
         <img src="logo.png" alt="logo" />
-        <a href="logo.png"></a>
-      </div>
          <div class="navbarFunktion">
           <button class="randomCocktail">New Cocktail!</button>
-         <!-- <a href="#search-page"> klicka på mig snella</a> -->
-         <!-- <a href="Favoriter">Favoriter</a> -->
+          <button class="home-button">Home!</button>
+          <button class="search-button">Search!</button>
          </div>
         </nav>
   
-  
   <!-- header slut -->
-  <!-- hero start -->
-  <section class="open" id="start-page">  <!-- undersöka -->
 
-  <div class="heroContainer">
-    <div class="cocktailSection">
-  </div>   
-  <div class="moreInfoDiv">
-  </div>
-</div>
-</section>
+  <section id="start-page"> <!-- Start Page -->
+    <div class="cocktailSection"></div>
+    <div class="moreInfoDiv"></div>
+  </section>
 
-<section id="details-page"> <!-- undersöka -->
-  <h1>Details Page</h1>
-  <p>This is the details page about a specific cocktail</p>
-</section>
-<!--  -->
-
-  <!-- //hero end -->
-<!-- undersöka -->
-  <!-- <section id="#search-page"> 
-    <h1> sök page</h1>
-    <button >klicka här</button>
+  <section id="details-page" style="display: none;"> <!-- Details Page -->
+    <div id="cocktail-details"></div>
+  </section>
+<!-- 
+    <section id="#search-page" style="display: none"> 
     <input type="search" id="search" value="Search A Cocktail!"
-    <p>här saöker du för drinkar pajas</p>
   </section> -->
+
+
     <script src="index.js" type="module"></script>
   </body>
 </html>

@@ -1,41 +1,38 @@
 import { mapRawCocktailData } from "./utilities.js"; //importing function to get a good object
 
 
-//  UNDERSÖKA DETTA SKITET
-//     const navbar = document.querySelector(".navbar1");
-//     const startPage = document.querySelector("#start-page");
-//     const detailsPage = document.querySelector("#details-page");
-//     const searchPage = document.querySelector("#search-page");
-
-
-//     navbar.addEventListener("click", handleNavBarClick);
-
-//     function handleNavBarClick(event) {
-//         const classList = event.target.classList;
-//         if (classList.contains("link")) return handleNavBarClick(event.target.id);
-//     };
-
-//     function handleOnLinkClick(id) {
-//         if (id === "start-link") {
-//             startPage.classList.add("open");
-//             detailsPage.classList.remove("open");
-//             searchPage.classList.remove("open");
-//         }
-   
-
-//     if (id === "search-link") {
-//         startPage.classList.remove("open");
-//         detailsPage.classList.remove("open");
-//         searchPage.classList.add("open");
-//     }
-// }
-//  UNDERSÖKA DETTA SKITET
-
         const randomCocktailButton = document.querySelector(".randomCocktail")
-        randomCocktailButton.addEventListener("click", randomcocktailgenerator); //bra ställe?
+        randomCocktailButton.addEventListener("click", randomcocktailgenerator, ); 
 
+
+        const homeButton = document.querySelector(".home-button");
+        homeButton.addEventListener("click", showStartPage);
+
+        
+        
 
 // funktioner nedför
+
+// startpage
+function showStartPage() {
+    document.querySelector("#start-page").style.display = "block";
+    document.querySelector("#details-page").style.display = "none";
+    // document.querySelector("#search-page").style.display = "none";
+}
+
+//detaljsidan
+function showDetailsPage() {
+    document.querySelector("#start-page").style.display = "none";
+    document.querySelector("#details-page").style.display = "block";
+    // document.querySelector("#search-page").style.display = "none";
+}
+// söksidan
+// function showSearchPage() {
+//     document.querySelector("#start-page").style.display = "none";
+//     document.querySelector("#details-page").style.display = "none";
+//     document.querySelector("#search-page").style.display = "block";
+// }
+
 
 export async function searchFunciton() {
     const searchapi = `www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailName}`
@@ -66,10 +63,8 @@ catch (error) {
 const randomcocktailapi = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
 
 
-
 function randomcocktail(mappedcocktail) {
-        
-        //innerhtml för visa cocktail grundinfo
+        showStartPage();
         const randomCocktailInfo = document.querySelector(".cocktailSection");
         randomCocktailInfo.innerHTML = `
         <strong>${mappedcocktail.name}</strong>
@@ -83,12 +78,11 @@ function randomcocktail(mappedcocktail) {
         
     } ;
 
-    function updateDom(Info) {
+    function updateDetailsPage(Info) {
         // dom förändring ->
 
-        const Infotarget = document.querySelector(".moreInfoDiv")
+        const Infotarget = document.querySelector("#cocktail-details")
         Infotarget.innerHTML =`
-        <ul>
         <p>${Info.name} </p>
         <p>${Info.category} </p>
         <ul>
@@ -98,6 +92,7 @@ function randomcocktail(mappedcocktail) {
             `
         ).join("")} 
         </ul>
+        <ul>
          <p>${Info.glass}</p>
          ${Info.ingredients.map((ingredient) => `
             <li>${ingredient.measure}
@@ -108,7 +103,7 @@ function randomcocktail(mappedcocktail) {
          <p>${Info.instructions} </p>
           <img src="${Info.thumbnail}" alt="${Info.name}" />
         `
-    // skriver ut namn -> category -> mappar igenom taggar om det finns flera skrivs de ut -> sedan vilket glass -> till ingredienser+hur mycket -> instruktioner -> till länk
+        showDetailsPage(); //detaljsidan
     }
 
 async function InfoId(cocktailId) {
@@ -119,17 +114,10 @@ async function InfoId(cocktailId) {
         const info = res.drinks ? res.drinks[0] : res;
         const mappadInfo = mapRawCocktailData(info);
         console.log(mappadInfo)
-        updateDom(mappadInfo)
+        updateDetailsPage(mappadInfo)
     }   catch (error) {
     console.log(error);
 
     } 
 }
-
-
-
-
-
-
-
-//instruktion = instructions
+showStartPage();
