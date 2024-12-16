@@ -4,12 +4,15 @@ import { mapRawCocktailData } from "./utilities.js"; //importing function to get
         const randomCocktailButton = document.querySelector(".randomCocktail")
         randomCocktailButton.addEventListener("click", randomcocktailgenerator, ); 
 
-
         const homeButton = document.querySelector(".home-button");
         homeButton.addEventListener("click", showStartPage);
 
-        
-        
+        const searchButton = document.querySelector(".search-button");
+        searchButton.addEventListener("click", showSearchPage)
+
+        const searchresults = document.querySelector(".searchResultButton")
+        searchresults.addEventListener("onclick", searchFunciton)
+
 
 // funktioner nedför
 
@@ -17,32 +20,23 @@ import { mapRawCocktailData } from "./utilities.js"; //importing function to get
 function showStartPage() {
     document.querySelector("#start-page").style.display = "block";
     document.querySelector("#details-page").style.display = "none";
-    // document.querySelector("#search-page").style.display = "none";
+    document.querySelector("#search-page").style.display = "none";
 }
 
 //detaljsidan
 function showDetailsPage() {
     document.querySelector("#start-page").style.display = "none";
     document.querySelector("#details-page").style.display = "block";
-    // document.querySelector("#search-page").style.display = "none";
+    document.querySelector("#search-page").style.display = "none";
 }
 // söksidan
-// function showSearchPage() {
-//     document.querySelector("#start-page").style.display = "none";
-//     document.querySelector("#details-page").style.display = "none";
-//     document.querySelector("#search-page").style.display = "block";
-// }
+function showSearchPage() {
+    document.querySelector("#start-page").style.display = "none";
+    document.querySelector("#details-page").style.display = "none";
+    document.querySelector("#search-page").style.display = "block";
+}
 
 
-export async function searchFunciton() {
-    const searchapi = `www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailName}`
-    const responseapi = await fetch(searchapi)
-    const res = await responseapi.json();
-    const cocktailName = res.drinks ? res.drinks[0] : res;
-    const searchfunktion = document.getElementById("search").value;
-    
-    
-};
 
 export async function randomcocktailgenerator() {
     try {
@@ -120,4 +114,27 @@ async function InfoId(cocktailId) {
 
     } 
 }
+
+
+async function searchFunciton() {
+    
+    const searchInput = document.querySelector("#searchInput");
+    const input = searchInput.value;
+    const searchApi = `www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailName}`
+
+    if (input) {
+    const response = await fetch(searchApi)
+    const data = await response.json();
+
+        const searchResults = document.getElementById("#searchResults");
+        if (data.drinks) {
+            searchResults.innerHTML = data.drinks.map(cocktail => `
+                    <p><a href="#" onclick="showCocktailDetails('${cocktail.idDrink}')">${cocktail.strDrink}</a></p>
+            `).join('');   
+        } else {
+            searchResults.innerHTML = `<p> No cocktails found, try again!. </p>` 
+        }
+    }   
+} 
+// börjar med start page
 showStartPage();

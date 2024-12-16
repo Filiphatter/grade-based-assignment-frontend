@@ -38,6 +38,14 @@ body {
     font-size: 1rem;
 }
 
+.searchResultButton {
+    background-color: orange;
+}
+
+.searchresults {
+    color:orange;
+    background-color: blue;
+}
 
 
 /* hero mög */
@@ -58,9 +66,6 @@ body {
     background-color: orange;
 }
 
-.heroContainer {
-    display: flex;
-    }
 
 .cocktailSection {
     justify-content: left;
@@ -71,13 +76,7 @@ body {
     /* färgen på namnet på cocktail som sker med innerhtml */
 }
 
-.moreInfoDiv {
-    justify-content: right;
-    width: 50%;
-    height: 100%;
-    color: orange;
-    font-size: 1.2rem;
-}
+
 
 /* bot if (cba) else (idc) */
 

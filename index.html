@@ -22,18 +22,22 @@
   
   <!-- header slut -->
 
-  <section id="start-page"> <!-- Start Page -->
+  <section id="start-page"> <!-- start Page -->
     <div class="cocktailSection"></div>
     <div class="moreInfoDiv"></div>
   </section>
 
-  <section id="details-page" style="display: none;"> <!-- Details Page -->
+  <section id="details-page" style="display: none"> <!-- details Page -->
     <div id="cocktail-details"></div>
   </section>
-<!-- 
-    <section id="#search-page" style="display: none"> 
-    <input type="search" id="search" value="Search A Cocktail!"
-  </section> -->
+
+    <section id="search-page" style="display: none"> <!-- search Page -->
+    <input type="text" id="searchInput" placeholder="Search for a cocktail name!">
+
+    <button class="searchResultButton"> Search! </button>
+      <div id="searchResults" class="searchResults">
+      </div>
+  </section>
 
 
     <script src="index.js" type="module"></script>
