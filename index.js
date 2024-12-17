@@ -1,5 +1,6 @@
 import { mapRawCocktailData } from "./utilities.js"; //importing function to get a good object
 
+// knappar
 
         const randomCocktailButton = document.querySelector(".randomCocktail")
         randomCocktailButton.addEventListener("click", randomcocktailgenerator, ); 
@@ -7,11 +8,11 @@ import { mapRawCocktailData } from "./utilities.js"; //importing function to get
         const homeButton = document.querySelector(".home-button");
         homeButton.addEventListener("click", showStartPage);
 
-        const searchButton = document.querySelector(".search-button");
+        const searchButton = document.querySelector(".search-button"); //själva sök saken i top right
         searchButton.addEventListener("click", showSearchPage)
 
-        const searchresults = document.querySelector(".searchResultButton")
-        searchresults.addEventListener("onclick", searchFunciton)
+        const search = document.querySelector(".searchResultButton") //search inuti search page
+        search.addEventListener("click", searchFunciton)
 
 
 // funktioner nedför
@@ -73,7 +74,7 @@ function randomcocktail(mappedcocktail) {
     } ;
 
     function updateDetailsPage(Info) {
-        // dom förändring ->
+        // dom förändring för detalj sida->
 
         const Infotarget = document.querySelector("#cocktail-details")
         Infotarget.innerHTML =`
@@ -118,23 +119,40 @@ async function InfoId(cocktailId) {
 
 async function searchFunciton() {
     
-    const searchInput = document.querySelector("#searchInput");
-    const input = searchInput.value;
-    const searchApi = `www.thecocktaildb.com/api/json/v1/1/search.php?s=${cocktailName}`
-
-    if (input) {
+    const searchInput = document.getElementById("searchInput").value.toLowerCase();
+    const searchApi = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}` //bara name? searchInput?
+try {
+    const searchResultsList = document.getElementById("searchList");
+    console.log(searchInput)
+    
     const response = await fetch(searchApi)
     const data = await response.json();
 
-        const searchResults = document.getElementById("#searchResults");
-        if (data.drinks) {
-            searchResults.innerHTML = data.drinks.map(cocktail => `
-                    <p><a href="#" onclick="showCocktailDetails('${cocktail.idDrink}')">${cocktail.strDrink}</a></p>
-            `).join('');   
+    if (data.drinks) {
+    const mappedData = data.drinks.map(mapRawCocktailData);
+           
+            searchResultsList.innerHTML = mappedData.map(drink => `
+                    <p><a href="#" onclick="InfoId('${drink.id}')">${drink.name}</a></p>
+            `).join("");
         } else {
-            searchResults.innerHTML = `<p> No cocktails found, try again!. </p>` 
+            searchResultsList.innerHTML = `<p> No cocktails found, try again!. </p>` 
         }
     }   
-} 
+
+catch (error) {
+    console.log(error);
+}
+}
+
+// html: searchinput (ID) 
+
+// button (search) class="searchResultButton"
+
+//div id=searchList class searchResults
+
+
+ // const info = data.drinks ? data.drinks[0] : data; behövs?
+
+
 // börjar med start page
 showStartPage();

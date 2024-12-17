@@ -76,6 +76,10 @@ body {
     /* färgen på namnet på cocktail som sker med innerhtml */
 }
 
+.searchList {
+    color:orange;
+    font-size: 2rem;
+}
 
 
 /* bot if (cba) else (idc) */
