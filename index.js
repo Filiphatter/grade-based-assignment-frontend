@@ -1,5 +1,7 @@
 import { mapRawCocktailData } from "./utilities.js"; //importing function to get a good object
 
+// TODO: FÅ IN ID FÖR DETALJ SIDA IFRÅN A TAGGEN MED SÖKRESULTAT
+
 // knappar
 
         const randomCocktailButton = document.querySelector(".randomCocktail")
@@ -116,13 +118,23 @@ async function InfoId(cocktailId) {
     } 
 }
 
+window.handleSearchClick = handleSearchClick;
+let selectedDrinkId = null; //global scopad variable för den eftersökta drinken
+function handleSearchClick(drinkId) {
+    selectedDrinkId = drinkId; //updaterar global variabel
+    console.log("drink id", selectedDrinkId)
+    InfoId(selectedDrinkId);
+}
+
+
+
 
 async function searchFunciton() {
     
     const searchInput = document.getElementById("searchInput").value.toLowerCase();
     const searchApi = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchInput}` //bara name? searchInput?
-try {
     const searchResultsList = document.getElementById("searchList");
+try {
     console.log(searchInput)
     
     const response = await fetch(searchApi)
@@ -132,7 +144,9 @@ try {
     const mappedData = data.drinks.map(mapRawCocktailData);
            
             searchResultsList.innerHTML = mappedData.map(drink => `
-                    <p><a href="#" onclick="InfoId('${drink.id}')">${drink.name}</a></p>
+                    <p>
+                    <a href="#" onclick="handleSearchClick('${drink.id}')">${drink.name}</a>
+                    </p>
             `).join("");
         } else {
             searchResultsList.innerHTML = `<p> No cocktails found, try again!. </p>` 
